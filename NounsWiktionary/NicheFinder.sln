@@ -5,6 +5,16 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NounsWiktionary", "NounsWiktionary.csproj", "{9009743E-5BD3-4193-817D-5E12804A2C62}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NicheFinder", "..\NicheFinder\NicheFinder.csproj", "{D67F4190-1E97-4C4E-96E7-27F1F71CEE91}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{58D07456-FFCF-4FE1-8042-C70B7BD1F232}"
+	ProjectSection(SolutionItems) = preProject
+		..\Data\finder.sqlite = ..\Data\finder.sqlite
+		..\Data\liste_naf2008_n5.csv = ..\Data\liste_naf2008_n5.csv
+		..\Data\NAFrev2cpf2015.pdf = ..\Data\NAFrev2cpf2015.pdf
+		..\Data\nouns.fr.txt = ..\Data\nouns.fr.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +25,10 @@ Global
 		{9009743E-5BD3-4193-817D-5E12804A2C62}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9009743E-5BD3-4193-817D-5E12804A2C62}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9009743E-5BD3-4193-817D-5E12804A2C62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D67F4190-1E97-4C4E-96E7-27F1F71CEE91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D67F4190-1E97-4C4E-96E7-27F1F71CEE91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D67F4190-1E97-4C4E-96E7-27F1F71CEE91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D67F4190-1E97-4C4E-96E7-27F1F71CEE91}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
