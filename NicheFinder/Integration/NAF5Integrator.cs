@@ -4,28 +4,42 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NicheFinder.Integration
 {
     /// <summary>
     /// Classe d'intégration de la liste de référence des NAF5 dans la BDD
     /// </summary>
-    public static class NAF5Integrator
+    public class NAF5Integrator : Integrator
     {
         /// <summary>
-        /// S'assure que les NAF5 sont bien intégrés en BDD
+        /// Priorité à appliquer à l'ordre d'utilisation de la classe
         /// </summary>
-        public static void EnsureIntegrated()
+        public override Int32 Priority { get { return 0; } }
+
+        /// <summary>
+        /// Chemin d'accès au CSV contenant les NAF à intégrer
+        /// </summary>
+        private readonly String _nafPath = @"C:\Users\W\Source\Repos\nichefinder\Data\liste_naf2008_n5.csv";
+
+        /// <summary>
+        /// Vérifie si les données gérées par la classe ont déjà été integrée
+        /// </summary>
+        /// <returns></returns>
+        public override Boolean IsIntegrated()
         {
             using (IDbContext ctx = NicheContext.Create())
             {
-                if (ctx.Nouns.Any())
-                    return;
+                return ctx.Nouns.Any();
             }
+        }
 
-            IEnumerable<NAF5> nafs = ParseNAF5(@"C:\Users\W\Source\Repos\nichefinder\Data\liste_naf2008_n5.csv");
+        /// <summary>
+        /// Intégère les données gérées par la classe
+        /// </summary>
+        public override void Integrate()
+        {
+            IEnumerable<NAF5> nafs = ParseNAF5(this._nafPath);
             if (nafs == null || !nafs.Any())
                 throw new InvalidOperationException("Impossible de trouver la liste des noms");
 
@@ -41,7 +55,7 @@ namespace NicheFinder.Integration
         /// <summary>
         /// Parse le ficher contant les NAF5
         /// </summary>
-        static IEnumerable<NAF5> ParseNAF5(String naf5Files)
+        private IEnumerable<NAF5> ParseNAF5(String naf5Files)
         {
             IList<NAF5> res = new List<NAF5>();
 

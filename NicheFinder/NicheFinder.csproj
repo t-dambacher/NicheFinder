@@ -84,8 +84,10 @@
     <Compile Include="DataBase\Entities\SearchRequest_Noun.cs" />
     <Compile Include="DataBase\IDbContext.cs" />
     <Compile Include="DataBase\NicheContext.cs" />
+    <Compile Include="Integration\Integrator.cs" />
     <Compile Include="Integration\Integrators.cs" />
     <Compile Include="Integration\NAF5Integrator.cs" />
+    <Compile Include="Integration\NAFDescriptionsIntegrator.cs" />
     <Compile Include="Integration\NounsIntegrator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

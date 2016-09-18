@@ -12,20 +12,35 @@ namespace NicheFinder.Integration
     /// <summary>
     /// Classe d'intégration de la liste de référence des noms dans la BDD
     /// </summary>
-    public static class NounsIntegrator
+    public class NounsIntegrator : Integrator
     {
         /// <summary>
-        /// S'assure que les noms sont bien intégrés en BDD
+        /// Priorité à appliquer à l'ordre d'utilisation de la classe
         /// </summary>
-        public static void EnsureIntegrated()
+        public override Int32 Priority { get { return 0; } }
+
+        /// <summary>
+        /// Chemin d'accès au CSV contenant les NAF à intégrer
+        /// </summary>
+        private readonly String _nounPath = @"C:\Users\W\Source\Repos\nichefinder\Data\nouns.fr.txt";
+
+        /// <summary>
+        /// Vérifie si les données gérées par la classe ont déjà été integrée
+        /// </summary>
+        public override Boolean IsIntegrated()
         {
             using (IDbContext ctx = NicheContext.Create())
             {
-                if (ctx.Nouns.Any())
-                    return;
+                return ctx.Nouns.Any();
             }
+        }
 
-            IEnumerable<Noun> nouns = ParseNouns(@"C:\Users\W\Source\Repos\nichefinder\Data\nouns.fr.txt");
+        /// <summary>
+        /// Intégère les données gérées par la classe
+        /// </summary>
+        public override void Integrate()
+        {
+            IEnumerable<Noun> nouns = ParseNouns(_nounPath);
             if (nouns == null || !nouns.Any())
                 throw new InvalidOperationException("Impossible de trouver la liste des noms");
 
@@ -46,7 +61,7 @@ namespace NicheFinder.Integration
         /// <summary>
         /// Division de la liste globale en sous listes
         /// </summary>
-        private static IEnumerable<IEnumerable<Noun>> CreateGroups(IEnumerable<Noun> nouns)
+        private IEnumerable<IEnumerable<Noun>> CreateGroups(IEnumerable<Noun> nouns)
         {
             List<Noun> res = new List<Noun>();
             for (Int32 i = 0, total = nouns.Count(); i < total; ++i)
@@ -65,7 +80,7 @@ namespace NicheFinder.Integration
         /// <summary>
         /// Parse le ficher contant les noms
         /// </summary>
-        static IEnumerable<Noun> ParseNouns(String nounsFile)
+        private IEnumerable<Noun> ParseNouns(String nounsFile)
         {
             IList<Noun> res = new List<Noun>();
 
